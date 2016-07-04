@@ -1,0 +1,2 @@
+class VendasController < ApplicationController
+end
