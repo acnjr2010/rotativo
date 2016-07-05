@@ -1,0 +1,22 @@
+%h2
+  Dados do veículo
+  = @veiculo.modelo
+
+%h4
+  %p
+    Tipo
+    = @veiculo.tipo
+
+  %p
+    Modelo
+    = @veiculo.modelo
+
+  %p
+    Placa
+    = @veiculo.placa_veiculo
+
+  %p
+    Cor
+    = @veiculo.cor
+
+= link_to "Lista dos seus veiculos", veiculos_path, class: 'btn btn-primary pull-right'

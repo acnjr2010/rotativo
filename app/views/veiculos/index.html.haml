@@ -1,0 +1,29 @@
+%h2 Veículos cadastrados
+
+%table.table.table-striped
+  %tr
+    %thead
+      %th Tipo
+      %th Placa
+      %th Modelo
+      %th Cor
+      %th Editar
+      %th Remover
+
+  - @veiculos.each do |veiculo|
+    %tbody
+      %tr
+        %td
+          = veiculo.tipo
+        %td
+          = veiculo.placa_veiculo
+        %td
+          = veiculo.modelo
+        %td
+          = veiculo.cor
+        %td
+          = link_to 'Editar', edit_veiculo_path(veiculo), class: 'btn btn-primary'
+        %td
+          = link_to 'Remover', veiculo_path(veiculo), class: "btn btn-danger", method: :delete, data: { confirm: "Você tem certeza?" }
+
+= link_to "Cadastrar Veículo", new_veiculo_path()

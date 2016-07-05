@@ -1,0 +1,15 @@
+!!!
+%html
+%head
+  %title Itaboraí Rotativo
+  = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+  = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  = csrf_meta_tags
+%body
+  .container
+    .col-md-9.center-block
+      - flash.each do |name, msg|
+        = content_tag(:div, msg, class: "alert alert-info")
+
+    .col-md-12
+      = yield
