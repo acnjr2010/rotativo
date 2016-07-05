@@ -26,4 +26,5 @@
         %td
           = link_to 'Remover', veiculo_path(veiculo), class: "btn btn-danger", method: :delete, data: { confirm: "Você tem certeza?" }
 
-= link_to "Cadastrar Veículo", new_veiculo_path()
+= link_to "Cadastrar Veículo", new_veiculo_path
+= link_to "Sair", destroy_user_session_path, method: :delete

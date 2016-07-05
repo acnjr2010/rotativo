@@ -1,0 +1,14 @@
+<h2>Cadastro Nova Conta</h2>
+
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs col-md-9">
+    <%= f.input :email, required: true, autofocus: true, class: 'form-control' %>
+    <%= f.input :password, label: "Senha", required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), class: 'form-control' %>
+    <%= f.input :password_confirmation, label: "Confirmação de Senha", required: true, class: 'form-control' %>
+    <%= f.button :submit, "Cadastrar", class: 'btn btn-primary' %><br>
+    <%= render "devise/shared/links" %>
+  </div>
+
+<% end %>

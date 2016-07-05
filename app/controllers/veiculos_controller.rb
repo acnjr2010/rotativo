@@ -1,6 +1,6 @@
 class VeiculosController < ApplicationController
   before_action :find_veiculo, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   def index
     @veiculos = Veiculo.all.order("created_at DESC")
   end
