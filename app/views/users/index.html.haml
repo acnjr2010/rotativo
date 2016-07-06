@@ -3,7 +3,7 @@
 %h5
   Bem vindo
   = @user.nome
-  = link_to "Minhas Informações", edit_user_path(current_user), class: "pull-right"
+  = link_to "Minhas Informações", user_path(current_user), class: "pull-right"
 
 %hr
 
@@ -22,14 +22,14 @@
         - if Veiculo.any?
           %th Modelo
           %th Placa
-          - @user.veiculos.each do |veiculo|
+          - @user.veiculos.order(modelo: :asc).each do |veiculo|
             %tr
               %td
                 = link_to veiculo.modelo, veiculo
               %td
                 = veiculo.placa_veiculo.upcase
 
-      = link_to "Cadastrar Veículo", new_veiculo_path(current_user)
+      = link_to "Cadastrar Veículo", new_veiculo_path
       %hr
 
     %p

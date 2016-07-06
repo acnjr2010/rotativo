@@ -22,4 +22,7 @@
     Cor:
     = @veiculo.cor
 
-= link_to "Lista dos seus veiculos", veiculos_path, class: 'btn btn-primary pull-right'
+
+= link_to 'Editar', edit_veiculo_path(@veiculo), class: 'btn btn-primary'
+= link_to 'Remover', veiculo_path(@veiculo), class: "btn btn-danger", method: :delete, data: { confirm: "Você tem certeza?" }
+= link_to "Voltar", users_path, class: 'btn btn-primary pull-right'

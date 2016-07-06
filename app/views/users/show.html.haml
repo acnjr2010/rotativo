@@ -1,0 +1,28 @@
+%h2 Minhas Informações
+
+%hr
+
+%h4
+  %p
+    Nome Completo:
+    = current_user.nome
+
+  %p
+    Endereço:
+    = current_user.endereco
+
+  %p
+    Telefone:
+    = current_user.telefone
+
+  %p
+    CPF
+    = current_user.cpf
+
+  %p
+    Email:
+    = current_user.email
+
+= link_to 'Voltar', users_path, class: "btn btn-primary pull-right"
+
+= link_to 'Editar', edit_user_path(current_user), class: "btn btn-primary pull-right"

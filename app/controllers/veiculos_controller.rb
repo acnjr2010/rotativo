@@ -6,11 +6,11 @@ class VeiculosController < ApplicationController
   end
 
   def new
-    @veiculo = Veiculo.new
+    @veiculo = current_user.veiculos.build
   end
 
   def create
-    @veiculo = Veiculo.create(veiculo_params)
+    @veiculo = current_user.veiculos.build(veiculo_params)
 
     respond_to do |format|
       if @veiculo.save
