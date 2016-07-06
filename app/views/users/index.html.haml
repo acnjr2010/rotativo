@@ -1,0 +1,46 @@
+%h1 Painel de Controle Itaboraí Rotativo
+
+%h5
+  Bem vindo
+  = @user.nome
+  = link_to "Minhas Informações", edit_user_path(current_user), class: "pull-right"
+
+%hr
+
+.row-fluid
+  .wrapper
+    %p
+      %h4 Bilhete Ativo
+      %br
+      Dependende do modulo vendas
+      %hr
+
+    %p
+      %h4 Meus Veiculos
+      %table.table.table-striped
+        %thead
+        - if Veiculo.any?
+          %th Modelo
+          %th Placa
+          - @user.veiculos.each do |veiculo|
+            %tr
+              %td
+                = link_to veiculo.modelo, veiculo
+              %td
+                = veiculo.placa_veiculo.upcase
+
+      = link_to "Cadastrar Veículo", new_veiculo_path(current_user)
+      %hr
+
+    %p
+      %h4 Históricos de Compras
+      Não foi realizada a compra de nenhum Bilhete
+      %hr
+    %p
+      %h4 Comprar Novo Bilhete
+      = link_to 'Novo Bilhete', new_venda_path, class: 'btn btn-primary'
+      %hr
+    %p
+      %h4 Lista de Ruas com vagas disponíveis
+
+      Depende do módulo controle

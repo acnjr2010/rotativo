@@ -2,7 +2,7 @@ class VeiculosController < ApplicationController
   before_action :find_veiculo, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   def index
-    @veiculos = Veiculo.all.order("created_at DESC")
+    @veiculos = Veiculo.where(user: current_user)
   end
 
   def new
@@ -53,7 +53,7 @@ class VeiculosController < ApplicationController
   private
 
   def veiculo_params
-    params.require(:veiculo).permit(:placa_veiculo, :tipo, :modelo, :cor)
+    params.require(:veiculo).permit(:placa_veiculo, :tipo, :modelo, :cor, :user_id)
   end
 
   def find_veiculo

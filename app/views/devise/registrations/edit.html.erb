@@ -4,7 +4,11 @@
   <%= f.error_notification %>
 
   <div class="form-inputs col-md-9">
-    <%= f.input :email, required: true, autofocus: true %>
+    <%= f.input :nome, required: true, autofocus: true, class: 'form-control', placeholder: "Nome Completo" %>
+    <%= f.input :email, required: true, autofocus: true, class: "form-control", placeholder: "Email" %>
+    <%= f.input :cpf, required: true, autofocus: true, class: 'form-control', placeholder: "CPF" %>
+    <%= f.input :endereco, required: true, autofocus: true, class: 'form-control', placeholder: "Endereço Completo" %>
+    <%= f.input :telefone, required: true, autofocus: true, class: 'form-control', placeholder: "Telefone" %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Atualmente aguardando confirmação para: <%= resource.unconfirmed_email %></p>

@@ -1,6 +1,6 @@
 = simple_form_for @veiculo do |f|
   = f.input :tipo, collection: [[ 'Carro', 'Carro' ], [ 'Moto', "Moto" ]], selected: params[:tipo], include_blank: false
-  = f.input :placa_veiculo, label: "Placa do Veículo", placeholder: "exemplo: ABC-1234 ou ABC1234"
+  = f.input :placa_veiculo, label: "Placa do Veículo", placeholder: "exemplo: ABC-1234"
   = f.input :modelo, label: "Modelo do Veículo", placeholder: "exemplo: Gol, Onix, Captiva, Titan, Fan, Hornet"
   = f.input :cor, placeholder: "Cor do seu veículo"
   = f.submit 'Salvar Dados', class: "btn btn-primary pull-right"
