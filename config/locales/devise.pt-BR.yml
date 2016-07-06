@@ -67,3 +67,12 @@ pt-BR:
               blank: "Campo email não pode ficar em branco"
             password:
               blank: "Campo senha não pode ficar em branco"
+        veiculo:
+          attributes:
+            placa_veiculo:
+              blank: "É obrigatório o preenchimento da placa do veículo"
+              invalid: "Formato inválido, deve ser preenchido no formato AAA-1234"
+            modelo:
+              blank: "Modelo do veículo não pode ficar em branco"
+            cor:
+              blank: "Cor do veículo deve ser informado"
