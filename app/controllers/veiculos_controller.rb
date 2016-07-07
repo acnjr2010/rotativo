@@ -1,6 +1,7 @@
 class VeiculosController < ApplicationController
   before_action :find_veiculo, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+
   def index
     @veiculos = Veiculo.where(user: current_user)
   end

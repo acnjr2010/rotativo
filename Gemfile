@@ -19,6 +19,8 @@ gem 'simple_form', '~> 3.2', '>= 3.2.1'
 gem 'bcrypt', '~> 3.1.7'
 gem 'haml', '~> 4.0', '>= 4.0.7'
 gem 'devise', '~> 4.0', '>= 4.0.1'
+gem 'validates_cpf_cnpj', '~> 0.2.0'
+gem 'jquery-mask-plugin', '~> 0.1.1'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

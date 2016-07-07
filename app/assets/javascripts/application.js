@@ -12,8 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.mask.min.js
+//= require jasny-bootstrap.min.js
 //= require bootstrap-sprockets
 //= require angular
-//= require angular-resource  
-//= require turbolinks
+//= require angular-resource
 //= require_tree .

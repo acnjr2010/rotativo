@@ -65,8 +65,22 @@ pt-BR:
           attributes:
             email:
               blank: "Campo email não pode ficar em branco"
+              invalid: "Email invalido"
             password:
               blank: "Campo senha não pode ficar em branco"
+            nome:
+              blank: "Campo nome não pode ficar em branco"
+            endereco:
+              blank: "Campo endereço não pode ficar em branco"
+              too_short: "Endereço está inválido"
+            telefone:
+              blank: "Campo telefone não pode ficar em branco"
+              invalid: "Formato do telefone ou celular inválido"
+              too_short: "Tefone inválido"
+            cpf:
+              blank: "Campo CPF não pode ficar em branco"
+              invalid: "CPF inválido"
+              taken: "Formatação incorreta utilize os pontos e traço 111.222.333-44"
         veiculo:
           attributes:
             placa_veiculo:
