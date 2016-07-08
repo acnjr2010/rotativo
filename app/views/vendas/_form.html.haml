@@ -1,0 +1,2 @@
+= simple_form_for([current_user, @venda]) do |f|
+  = f.input :placa_veiculo, label: "Placa do Veículo", collection: current_user.veiculos.each{ |veiculo| p veiculo.placa_veiculo }, include_blank: true

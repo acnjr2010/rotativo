@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :veiculos
+  has_many :vendas
 
   validates :nome, :email, :cpf, :endereco, :telefone, presence: true
   validates_cpf :cpf

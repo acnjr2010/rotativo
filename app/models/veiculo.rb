@@ -1,5 +1,6 @@
 class Veiculo < ActiveRecord::Base
   belongs_to :user
+  has_many :vendas
 
   validates :placa_veiculo, :tipo, :modelo, :cor, presence: true
   validates_uniqueness_of :placa_veiculo

@@ -16,16 +16,16 @@
             %ul
               .nav.navbar-nav.navbar-right
                 %li
-                  = link_to "Novo Bilhete", "#", class: "btn btn-default"
+                  = link_to "Novo Bilhete", new_user_venda_path(current_user)
                 %li
-                  = link_to "Sair do Sistema", destroy_user_session_path, method: :delete, class: "btn btn-default"
+                  = link_to "Sair do Sistema", destroy_user_session_path, method: :delete
           - else
             %ul
               .nav.navbar-nav.pull-right
                 %li
-                  = link_to "Entrar", new_user_session_path, class: "btn btn-default"
+                  = link_to "Entrar", new_user_session_path
                 %li
-                  = link_to "Cadastrar", new_user_registration_path, class: "btn btn-default"
+                  = link_to "Cadastrar", new_user_registration_path
 
   .container
     = yield
