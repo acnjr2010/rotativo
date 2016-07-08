@@ -1,2 +1,5 @@
 = simple_form_for([current_user, @venda]) do |f|
-  = f.input :placa_veiculo, label: "Placa do Veículo", collection: current_user.veiculos.each{ |veiculo| p veiculo.placa_veiculo }, include_blank: true
+  = f.input :placa_veiculo, label: "Placa do Veículo", hint: "#{link_to 'Cadastrar Veiculo', new_veiculo_path}".html_safe, collection: current_user.veiculos, label_method: :modelo, value_method: :placa_veiculo, require: true, include_blank: false, prompt: "Selecione seu veículo"
+  = f.input :setor, label: "Setor", collection: [['Azul', 'Azul'], ['Verde', 'Verde'], ['Branca', 'Branca']], include_blank: false, require: true, prompt: "Selecione o setor que irá estacional"
+  = f.input :periodo, label: "Periodos", collection: [["1 Período", 1], ["2 Periodos", 2]], include_blank: false, require: true, prompt: "Selecione quantos períodos deseja?"
+  = f.submit "Comprar Bilhete", class: "btn btn-primary pull-right"
