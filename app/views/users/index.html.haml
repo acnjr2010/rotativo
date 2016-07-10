@@ -38,7 +38,18 @@
       %hr
     %p
       %h4 Comprar Novo Bilhete
-      = link_to 'Novo Bilhete', new_user_venda_path(current_user), class: 'btn btn-primary'
+      / = link_to 'Novo Bilhete', new_user_venda_path(current_user), class: 'btn btn-primary'
+
+      / INICIO FORMULARIO BOTAO PAGSEGURO
+      %form{:action => veiculos_path, :method => "post", :onsubmit => "PagSeguroLightbox(this); return false;"}
+        %input{:name => "itemCode", :type => "hidden", :value => "4D8327DC96962DAAA4563F940F58B9A3"}/
+        %input{:name => "iot", :type => "hidden", :value => "button"}/
+        %input{:alt => "Pague com PagSeguro - é rápido, grátis e seguro!", :name => "submit", :src => "https://stc.pagseguro.uol.com.br/public/img/botoes/pagamentos/209x48-comprar-assina.gif", :type => "image"}/
+        %script{:src => "https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js", :type => "text/javascript"}
+      / FINAL FORMULARIO BOTAO PAGSEGURO
+
+
+
       %hr
     %p
       %h4 Lista de Ruas com vagas disponíveis

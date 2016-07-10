@@ -16,7 +16,7 @@
             %ul
               .nav.navbar-nav.navbar-right
                 %li
-                  = link_to "Novo Bilhete", new_user_venda_path(current_user)
+                  = link_to "Novo Bilhete", new_user_bilhete_path(current_user)
                 %li
                   = link_to "Sair do Sistema", destroy_user_session_path, method: :delete
           - else
