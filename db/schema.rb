@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707233521) do
+ActiveRecord::Schema.define(version: 20160710161545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bilhetes", force: :cascade do |t|
+    t.float    "preco"
+    t.text     "descricao"
+    t.string   "setor"
+    t.string   "veiculo"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "user_id"
+    t.string   "placa_veiculo"
+    t.integer  "periodo"
+  end
+
+  add_index "bilhetes", ["user_id"], name: "index_bilhetes_on_user_id", using: :btree
 
   create_table "perfis", force: :cascade do |t|
     t.string "tipo"

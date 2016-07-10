@@ -3,8 +3,9 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :vendas
+    resources :bilhetes
   end
-  
+
   resources :veiculos
 
   root "users#index"

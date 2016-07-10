@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :veiculos
   has_many :vendas
+  has_many :bilhetes
 
   validates :nome, :email, :cpf, :endereco, :telefone, presence: true
   validates_cpf :cpf

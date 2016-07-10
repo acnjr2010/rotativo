@@ -21,6 +21,7 @@ gem 'haml', '~> 4.0', '>= 4.0.7'
 gem 'devise', '~> 4.0', '>= 4.0.1'
 gem 'validates_cpf_cnpj', '~> 0.2.0'
 gem 'jquery-mask-plugin', '~> 0.1.1'
+gem 'pagseguro-oficial', '~> 2.6'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
