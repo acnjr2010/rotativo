@@ -17,4 +17,6 @@
 //= require bootstrap-sprockets
 //= require angular
 //= require angular-resource
+//= require underscore
+//= require gmaps/google
 //= require_tree .

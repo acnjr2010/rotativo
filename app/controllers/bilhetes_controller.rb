@@ -15,20 +15,19 @@ class BilhetesController < ApplicationController
 
     # order = Bilhete.find(params[:id])
 
-    payment = PagSeguro::PaymentRequest.new(email: 'nog.junior84@gmail.com', token: 'AC95709BEB6C47D68C80DE2E01ED9D60')
+    payment = PagSeguro::PaymentRequest.new#(email: 'nog.junior84@gmail.com', token: 'AC95709BEB6C47D68C80DE2E01ED9D60')
 
     # Você também pode fazer o request de pagamento usando credenciais
     # diferentes, como no exemplo abaixo
 
 
     payment.reference = @bilhete.id
-    payment.notification_url = notifications_url
-    payment.redirect_url = processing_url
-byebug
+    payment.notification_url = "lalalalalalalala.com.br"
+    payment.redirect_url = "localhost:3000/veiculos"
     # order.products.each do |product|
       payment.items << {
-        id: @bilhete.id,
-        description: @bilhete.descricao,#product.title,
+        id: 1,
+        description: "Bilhete",#product.title,
         amount: 2.00,#product.price,
         #weight: 0#product.weight
       }
@@ -42,7 +41,7 @@ byebug
     # payment.extra_params << { extraAmount: '-15.00' }
 
     response = payment.register
-
+    byebug
     # Caso o processo de checkout tenha dado errado, lança uma exceção.
     # Assim, um serviço de rastreamento de exceções ou até mesmo a gem
     # exception_notification poderá notificar sobre o ocorrido.
