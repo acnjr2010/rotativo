@@ -3,6 +3,13 @@ class UsersController < ApplicationController
 
   def index
     @user = current_user
+    @locations = Location.all
+    @hash = Gmaps4rails.build_markers(@locations) do |location, marker|
+      info = "#{location.nome} <br> #{location.endereco} <br> #{location.titulo}"
+      marker.lat location.latitude
+      marker.lng location.longitude
+      marker.infowindow info
+    end
   end
 
   def show

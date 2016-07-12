@@ -1,3 +1,8 @@
+%script{:src => "//maps.google.com/maps/api/js?v=3.23&sensor=false&client=&key=&libraries=geometry&language=&hl=®ion=" }
+%script{:src => "//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"}
+%script{:src => "//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js", :type => "text/javascript"}
+/ only if you need custom infoboxes
+
 %h1 Painel de Controle Itaboraí Rotativo
 
 %h5
@@ -47,11 +52,18 @@
         %input{:alt => "Pague com PagSeguro - é rápido, grátis e seguro!", :name => "submit", :src => "https://stc.pagseguro.uol.com.br/public/img/botoes/pagamentos/209x48-comprar-assina.gif", :type => "image"}/
         %script{:src => "https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js", :type => "text/javascript"}
       / FINAL FORMULARIO BOTAO PAGSEGURO
-
-
-
       %hr
     %p
-      %h4 Lista de Ruas com vagas disponíveis
-
-      Depende do módulo controle
+      %h4 Mapa com a localização dos estacionamentos
+      %div{:style => "width: 800px;"}
+        #map{:style => "width: 800px; height: 400px;"}
+      :javascript
+        handler = Gmaps.build('Google');
+        handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+          markers = handler.addMarkers(#{raw @hash.to_json});
+          handler.bounds.extendWith(markers);
+          handler.fitMapToBounds();
+        });
+      %br
+      %br
+      %br
