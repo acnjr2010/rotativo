@@ -17,7 +17,51 @@
     %p
       %h4 Bilhete Ativo
       %br
-      Dependende do modulo vendas
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Bilhete
+            %th Setor
+            %th Placa do Veículo
+            %th Periodos
+            %th Ativado em
+            %th Ativar
+
+        - @bilhetes_ativos.each do |bilhete|
+          %tbody
+            %tr
+              %td= bilhete.bilhete
+              %td= Setor.find(bilhete.setor_id).cor
+              %td= bilhete.placa_veiculo
+              %td
+                = bilhete.periodo
+                período(s) comprado(s)
+              %td= time_tag bilhete.ativado_em
+              %td= link_to "Renovar", renovar_bilhete_path(bilhete), class: 'btn btn-success' if bilhete.periodo == 1
+      %hr
+
+    %p
+      %h4 Bilhete Pendentes
+      %br
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Bilhete
+            %th Setor
+            %th Placa do Veículo
+            %th Periodos
+            %th Ativar
+
+        - @bilhetes_pendentes.each do |bilhete|
+          %tbody
+            %tr
+              %td= bilhete.bilhete
+              %td= Setor.find(bilhete.setor_id).cor
+              %td= bilhete.placa_veiculo
+              %td
+                = bilhete.periodo
+                período(s) comprado(s)
+              %td= link_to "Ativar", ativar_bilhete_path(bilhete), class: 'btn btn-primary'
       %hr
 
     %p
@@ -38,19 +82,37 @@
       %hr
 
     %p
-      %h4 Históricos de Compras
-      Não foi realizada a compra de nenhum Bilhete
+      %h4 Históricos de Compras(Bilhetes Finalizados)
+      %br
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Bilhete
+            %th Setor
+            %th Placa do Veículo
+            %th Periodos
+            %th Finalizado
+        - @bilhetes_finalizados.each do |bilhete|
+          %tbody
+            %tr
+              %td= bilhete.bilhete
+              %td= Setor.find(bilhete.setor_id).cor
+              %td= bilhete.placa_veiculo
+              %td
+                = bilhete.periodo
+                período(s) comprado(s)
+              %td= time_tag bilhete.updated_at
       %hr
     %p
       %h4 Comprar Novo Bilhete
-      / = link_to 'Novo Bilhete', new_user_venda_path(current_user), class: 'btn btn-primary'
+      = link_to 'Novo Bilhete', new_user_bilhete_path(current_user), class: 'btn btn-primary'
 
       / INICIO FORMULARIO BOTAO PAGSEGURO
-      %form{:action => veiculos_path, :method => "post", :onsubmit => "PagSeguroLightbox(this); return false;"}
-        %input{:name => "itemCode", :type => "hidden", :value => "4D8327DC96962DAAA4563F940F58B9A3"}/
-        %input{:name => "iot", :type => "hidden", :value => "button"}/
-        %input{:alt => "Pague com PagSeguro - é rápido, grátis e seguro!", :name => "submit", :src => "https://stc.pagseguro.uol.com.br/public/img/botoes/pagamentos/209x48-comprar-assina.gif", :type => "image"}/
-        %script{:src => "https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js", :type => "text/javascript"}
+      /%form{:action => veiculos_path, :method => "post", :onsubmit => "PagSeguroLightbox(this); return false;"}
+      /  %input{:name => "itemCode", :type => "hidden", :value => "4D8327DC96962DAAA4563F940F58B9A3"}/
+      /  %input{:name => "iot", :type => "hidden", :value => "button"}/
+      /  %input{:alt => "Pague com PagSeguro - é rápido, grátis e seguro!", :name => "submit", :src => "https://stc.pagseguro.uol.com.br/public/img/botoes/pagamentos/209x48-comprar-assina.gif", :type => "image"}/
+      /  %script{:src => "https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js", :type => "text/javascript"}
       / FINAL FORMULARIO BOTAO PAGSEGURO
       %hr
     %p

@@ -11,23 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711175850) do
+ActiveRecord::Schema.define(version: 20160712192534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bilhetes", force: :cascade do |t|
-    t.float    "preco"
-    t.text     "descricao"
-    t.string   "setor"
-    t.string   "veiculo"
+    t.float    "valor_bilhete"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "user_id"
     t.string   "placa_veiculo"
     t.integer  "periodo"
+    t.datetime "ativado_em"
+    t.integer  "vendido_por"
+    t.string   "bilhete"
+    t.integer  "status"
+    t.integer  "setor_id"
   end
 
+  add_index "bilhetes", ["setor_id"], name: "index_bilhetes_on_setor_id", using: :btree
   add_index "bilhetes", ["user_id"], name: "index_bilhetes_on_user_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
@@ -42,6 +45,15 @@ ActiveRecord::Schema.define(version: 20160711175850) do
 
   create_table "perfis", force: :cascade do |t|
     t.string "tipo"
+  end
+
+  create_table "setors", force: :cascade do |t|
+    t.string   "cor"
+    t.float    "preco_periodo"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "qtd_periodo"
+    t.integer  "tempo"
   end
 
   create_table "users", force: :cascade do |t|

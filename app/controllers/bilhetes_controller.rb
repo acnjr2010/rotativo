@@ -4,53 +4,79 @@ class BilhetesController < ApplicationController
   def new
     @bilhete = current_user.bilhetes.build
     @veiculo = current_user.veiculos
+    @setores = Setor.all
   end
 
   def create
+    @setores = Setor.all
 
-    # O modo como você irá armazenar os produtos que estão sendo comprados
-    # depende de você. Neste caso, temos um modelo Order que referência os
-    # produtos que estão sendo comprados.
-    @bilhete = current_user.bilhetes.build(params.require(:bilhete).permit(:preco, :descricao, :setor, :veiculo, :placa_veiculo))
+    params[:bilhete][:bilhete] = nro_bilhete
+    params[:bilhete][:valor_bilhete] = calculo_bilhete(params[:bilhete][:periodo], params[:bilhete][:setor_id])
+    @bilhete = current_user.bilhetes.build(bilhete_params)
 
-    # order = Bilhete.find(params[:id])
-
-    payment = PagSeguro::PaymentRequest.new#(email: 'nog.junior84@gmail.com', token: 'AC95709BEB6C47D68C80DE2E01ED9D60')
-
-    # Você também pode fazer o request de pagamento usando credenciais
-    # diferentes, como no exemplo abaixo
-
-
-    payment.reference = @bilhete.id
-    payment.notification_url = "lalalalalalalala.com.br"
-    payment.redirect_url = "localhost:3000/veiculos"
-    # order.products.each do |product|
-      payment.items << {
-        id: 1,
-        description: "Bilhete",#product.title,
-        amount: 2.00,#product.price,
-        #weight: 0#product.weight
-      }
-    #end
-
-    # Caso você precise passar parâmetros para a api que ainda não foram
-    # mapeados na gem, você pode fazer de maneira dinâmica utilizando um
-    # simples hash.
-    # payment.extra_params << { paramName: 'paramValue' }
-    # payment.extra_params << { senderBirthDate: '07/05/1981' }
-    # payment.extra_params << { extraAmount: '-15.00' }
-
-    response = payment.register
-    byebug
-    # Caso o processo de checkout tenha dado errado, lança uma exceção.
-    # Assim, um serviço de rastreamento de exceções ou até mesmo a gem
-    # exception_notification poderá notificar sobre o ocorrido.
-    #
-    # Se estiver tudo certo, redireciona o comprador para o PagSeguro.
-    if response.errors.any?
-      raise response.errors.join("\n")
-    else
-      redirect_to response.url
+    respond_to do |format|
+      if @bilhete.save
+        format.html { redirect_to users_path, notice: "Bilhete gerado com sucesso" }
+        format.json { render :show, status: :created, location: @bilhete }
+      else
+        format.html { render :new }
+        format.json { render json: @bilhete.errors, status: :unprocessable_entity }
+      end
     end
+  end
+
+  def ativar_bilhete
+    @bilhete = Bilhete.find(params[:id])
+
+    respond_to do |format|
+      if @bilhete.update_attributes(status: 1, ativado_em: Time.now)
+        format.html { redirect_to users_path, notice: "Bilhete ativado com sucesso" }
+        format.json { render :show, status: :ok, location: @bilhete }
+      else
+        format.html { render :edit }
+        format.json { render json: @bilhete.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def renovar_bilhete
+    @bilhete = Bilhete.find(params[:id])
+    @horario = @bilhete.ativado_em
+
+    respond_to do |format|
+      if @bilhete.update_attributes(status: 1, ativado_em: @horario + 3600, periodo: 2)
+        format.html { redirect_to users_path, notice: "Bilhete renovado com sucesso" }
+        format.json { render :show, status: :ok, location: @bilhete }
+      else
+        format.html { render :edit }
+        format.json { render json: @bilhete.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  private
+
+  def bilhete_params
+    params.require(:bilhete).permit(:valor_bilhete, :setor_id, :placa_veiculo, :bilhete, :periodo, :ativado_em, :vendido_por, :status, :user_id)
+  end
+
+  def nro_bilhete
+    cod = "AAA" #comando para chamar o código do bilhete
+    nro = rand(1..99999999)
+    bilhete = cod+nro.to_s
+
+    bilhetes = Bilhete.all.map{ |bilh| bilh.bilhete  }
+
+    if bilhetes.include?(bilhete)
+      nro_bilhete
+    else
+      bilhete
+    end
+  end
+
+  def calculo_bilhete(periodo, setor_id)
+    preco = Setor.find(setor_id).preco_periodo
+
+    valor_bilhete = periodo * preco
   end
 end

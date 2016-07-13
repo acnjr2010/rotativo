@@ -9,7 +9,8 @@ Rails.application.routes.draw do
 
   resources :veiculos
 
-  #root "users#index"
-  root "locations#index"
+  get "bilhetes/ativar/:id", controller: 'bilhetes', action: 'ativar_bilhete', as: "ativar_bilhete"
+  get "bilhetes/renovar/:id", controller: 'bilhetes', action: 'renovar_bilhete', as: "renovar_bilhete"
+  root "users#index"
 
 end

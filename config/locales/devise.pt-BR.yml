@@ -81,6 +81,14 @@ pt-BR:
               blank: "Campo CPF não pode ficar em branco"
               invalid: "CPF inválido"
               taken: "Formatação incorreta utilize os pontos e traço 111.222.333-44"
+        bilhete:
+          attributes:
+            placa_veiculo:
+              blank: "Deve selecionar um veiculo, caso não conste na lista cadastre-o clicando no link abaixo"
+            setor_id:
+              blank: "Deve selecionar um setor para estacionar"
+            periodo:
+              blank: "Deve selecionar a quantidade de períodos que pretende ficar estacionado"
         veiculo:
           attributes:
             placa_veiculo:
