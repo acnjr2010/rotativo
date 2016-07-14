@@ -7,6 +7,10 @@ every 3.minutes do
   rake "bilhete_status_finalizado:finalizar_bilhete"
 end
 
+every 5.minutes do
+  rake "aviso_termino_bilhete:envio_email"
+end
+
 # Example:
 #
 # set :output, "/path/to/my/cron_log.log"
