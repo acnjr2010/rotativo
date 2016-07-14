@@ -30,6 +30,22 @@ Rails.application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = { :host => 'example.com' }
+  # Setup for production - deliveries, no errors raised
+  config.action_mailer.raise_delivery_errors = false
+  #config.action_mailer.delivery_method = :smtp
+  #config.action_mailer.perform_deliveries = true
+  config.action_mailer.default :charset => "utf-8"
+
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    domain: "gmail.com",
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: "itaborai.rotativo",
+    password: "!Q@w#E$r"
+  }
 
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random
