@@ -24,6 +24,7 @@ gem 'jquery-mask-plugin', '~> 0.1.1'
 gem 'pagseguro-oficial', '~> 2.6'
 gem 'geocoder'
 gem 'gmaps4rails'
+gem 'whenever', '~> 0.9.7', :require => false
 # Use Unicorn as the app server
 # gem 'unicorn'
 

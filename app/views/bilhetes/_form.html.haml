@@ -4,8 +4,5 @@
   = f.input :periodo, label: "Periodos", collection: [["1 Período", 1], ["2 Periodos", 2]], include_blank: false, require: true, prompt: "Selecione quantos períodos deseja?"
   = f.input :vendido_por, as: :hidden, input_html: { value: 1 }
   = f.input :status, as: :hidden, input_html: { value: 0 }
-  = f.input :ativado_em, as: :hidden, input_html: { value: Time.now }
+  = f.input :ativado_em, as: :hidden, input_html: { value: Time.current }
   = f.submit "Comprar Bilhete", class: "btn btn-primary pull-right"
-
-
-/:valor_bilhete, :ativado_em,

@@ -11,7 +11,7 @@ class BilhetesController < ApplicationController
     @setores = Setor.all
 
     params[:bilhete][:bilhete] = nro_bilhete
-    params[:bilhete][:valor_bilhete] = calculo_bilhete(params[:bilhete][:periodo], params[:bilhete][:setor_id])
+    params[:bilhete][:valor_bilhete] = calculo_bilhete(params[:bilhete][:periodo], params[:bilhete][:setor_id]) if params[:bilhete][:periodo] && params[:bilhete][:setor_id] != ""
     @bilhete = current_user.bilhetes.build(bilhete_params)
 
     respond_to do |format|
@@ -29,7 +29,7 @@ class BilhetesController < ApplicationController
     @bilhete = Bilhete.find(params[:id])
 
     respond_to do |format|
-      if @bilhete.update_attributes(status: 1, ativado_em: Time.now)
+      if @bilhete.update_attributes(status: 1, ativado_em: Time.current)
         format.html { redirect_to users_path, notice: "Bilhete ativado com sucesso" }
         format.json { render :show, status: :ok, location: @bilhete }
       else
@@ -77,6 +77,6 @@ class BilhetesController < ApplicationController
   def calculo_bilhete(periodo, setor_id)
     preco = Setor.find(setor_id).preco_periodo
 
-    valor_bilhete = periodo * preco
+    valor_bilhete = periodo.to_i * preco
   end
 end
