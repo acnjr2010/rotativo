@@ -1,0 +1,51 @@
+%h1 Listagem de Bilhetes Ativos
+
+- if @bilhetepvs.count != 0
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Bilhete
+        %th Veiculo
+        %th Periodo
+        %th Setor
+        %th Data da Compra
+        %th Ativado
+        %th Finaliza
+
+    - @bilhetepvs.each do |bilhetepv|
+      %tbody
+        %tr
+          %td= bilhetepv.bilhete
+          %td= bilhetepv.placa_veiculo
+          %td= bilhetepv.periodo
+          %td= Setor.find(bilhetepv.setor_id).cor
+          %td= time_tag bilhetepv.created_at
+          %td= time_tag bilhetepv.ativado_em
+          %td
+            - if bilhetepv.periodo == 1 && bilhetepv.setor_id == 1
+              = time_tag bilhetepv.ativado_em + 3600
+            - elsif bilhetepv.periodo == 2 && bilhetepv.setor_id == 1
+              = time_tag bilhetepv.ativado_em + 7200
+            - elsif bilhetepv.periodo == 1 && bilhetepv.setor_id == 2
+              = time_tag bilhetepv.ativado_em + 7200
+            - elsif bilhetepv.periodo == 2 && bilhetepv.setor_id == 2
+              = time_tag bilhetepv.ativado_em + 14400
+            - elsif bilhetepv.periodo == 1 && bilhetepv.setor_id == 3
+              = time_tag bilhetepv.ativado_em + 14000
+            - elsif bilhetepv.periodo == 2 && bilhetepv.setor_id == 3
+              = time_tag bilhetepv.ativado_em + 18000
+
+
+  .flickr_pagination
+    = will_paginate @bilhetepvs
+
+  %h4
+    .pull-right
+      = @bilhetepvs.count
+      Bilhetes Ativos.
+  %br
+
+
+- else
+  %h3
+    Não há nenhum bilhete ativo no momento

@@ -25,6 +25,7 @@ gem 'pagseguro-oficial', '~> 2.6'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'whenever', '~> 0.9.7', :require => false
+gem 'will_paginate', '~> 3.1'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

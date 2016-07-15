@@ -1,12 +1,5 @@
 ---
 pt-BR:
-  activerecord:
-    errors:
-      messages:
-        record_invalid: 'A validação falhou: %{errors}'
-        restrict_dependent_destroy:
-          has_one: Não é possível excluir o registro pois existe um %{record} dependente
-          has_many: Não é possível excluir o registro pois existem %{record} dependentes
   date:
     abbr_day_names:
     - Dom
@@ -107,7 +100,6 @@ pt-BR:
     format: "%{attribute} %{message}"
     messages:
       accepted: deve ser aceito
-      blank: não pode ficar em branco
       present: deve ficar em branco
       confirmation: não é igual a %{attribute}
       empty: não pode ficar vazio
@@ -117,21 +109,13 @@ pt-BR:
       greater_than: deve ser maior que %{count}
       greater_than_or_equal_to: deve ser maior ou igual a %{count}
       inclusion: não está incluído na lista
-      invalid: não é válido
       less_than: deve ser menor que %{count}
       less_than_or_equal_to: deve ser menor ou igual a %{count}
       model_invalid: 'A validação falhou: %{errors}'
-      not_a_number: não é um número
       not_an_integer: não é um número inteiro
       odd: deve ser ímpar
       required: deve existir
       taken: já está em uso
-      too_long:
-        one: 'é muito longo (máximo: 1 caracter)'
-        other: 'é muito longo (máximo: %{count} caracteres)'
-      too_short:
-        one: 'é muito curto (mínimo: 1 caracter)'
-        other: 'é muito curto (mínimo: %{count} caracteres)'
       wrong_length:
         one: não possui o tamanho esperado (1 caracter)
         other: não possui o tamanho esperado (%{count} caracteres)

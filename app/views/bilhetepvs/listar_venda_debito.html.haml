@@ -1,0 +1,35 @@
+%h1 Listagem de Vendas a Cartão de Débito
+
+- if @bilhetepvs.count != 0
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Bilhete
+        %th Veiculo
+        %th Periodo
+        %th Data da Compra
+        %th Valor
+
+    - @bilhetepvs.each do |bilhetepv|
+      %tbody
+        %tr
+          %td= bilhetepv.bilhete
+          %td= bilhetepv.placa_veiculo
+          %td= bilhetepv.periodo
+          %td= time_tag bilhetepv.created_at
+          %td= number_to_currency(bilhetepv.valor_bilhete, separator: ",", delimiter: ".", unit: "R$ ")
+
+  .flickr_pagination
+    = will_paginate @bilhetepvs
+
+  %h4
+    .pull-right
+      Valor Total:
+      = number_to_currency(@bilhete_valor.sum(:valor_bilhete), separator: ",", delimiter: ".", unit: "R$ ")
+
+  %br
+
+
+- else
+  %h3
+    Não houve nenhuma venda paga com cartão de débito até o momento

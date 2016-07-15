@@ -16,7 +16,28 @@
             %ul
               .nav.navbar-nav.navbar-right
                 %li
-                  = link_to "Novo Bilhete", new_user_bilhete_path(current_user)
+                  - if current_user.perfil_id == 1
+                    = link_to "Novo Bilhete", new_user_bilhete_path(current_user)
+                  - else
+                    %li= link_to "Novo Bilhete", new_user_bilhetepv_path(current_user)
+                    /%li= link_to "Relatórios", user_bilhetepvs_path
+                    %li.dropdown
+                      %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                        Relatórios
+                        %span.caret
+                      %ul.dropdown-menu
+                        %li= link_to "Relatório Geral de Vendas", listar_venda_geral_path
+                        %li= link_to "Relatório de Vendas a Dinheiro", listar_venda_dinheiro_path
+                        %li= link_to "Relatório de Vendas com Cartão de Crédito", listar_venda_credito_path
+                        %li= link_to "Relatório de Vendas com Cartão de Débito", listar_venda_debito_path
+                    %li.dropdown
+                      %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                        Bilhetes
+                        %span.caret
+                      %ul.dropdown-menu
+                        %li= link_to "Bilhetes Ativos", listar_bilhetes_path
+                        %li= link_to "Bilhetes Renováveis", listar_bilhetes_renovaveis_path
+
                 %li
                   = link_to "Sair do Sistema", destroy_user_session_path, method: :delete
           - else
