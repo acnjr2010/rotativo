@@ -82,8 +82,9 @@ class BilhetepvsController < ApplicationController
     bilhete = cod+nro.to_s
 
     bilhetes = Bilhete.all.map{ |bilh| bilh.bilhete  }
-
-    if bilhetes.include?(bilhete)
+    bilhetespv = Bilhetepv.all.map{ |bilh| bilh.bilhete }
+    
+    if bilhetes.include?(bilhete) || bilhetespv.include?(bilhete)
       nro_bilhete
     else
       bilhete

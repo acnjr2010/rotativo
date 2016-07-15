@@ -65,9 +65,10 @@ class BilhetesController < ApplicationController
     nro = rand(1..99999999)
     bilhete = cod+nro.to_s
 
-    bilhetes = Bilhete.all.map{ |bilh| bilh.bilhete  }
+    bilhetes = Bilhete.all.map{ |bilh| bilh.bilhete }
+    bilhetespv = Bilhetepv.all.map{ |bilh| bilh.bilhete }
 
-    if bilhetes.include?(bilhete)
+    if bilhetes.include?(bilhete) || bilhetespv.include?(bilhete)
       nro_bilhete
     else
       bilhete
