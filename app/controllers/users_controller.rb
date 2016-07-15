@@ -1,6 +1,17 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
+  def home
+    case current_user.perfil_id
+    when 1
+      user_home
+    when 2
+      ponto_venda_home
+    else
+      error_home
+    end
+  end
+
   def index
     @user = current_user
 
@@ -12,9 +23,9 @@ class UsersController < ApplicationController
       marker.infowindow info
     end
     @bilhete = current_user.bilhetes.build
-    @bilhetes_pendentes = Bilhete.where(status: 0)
-    @bilhetes_ativos = Bilhete.where(status: 1)
-    @bilhetes_finalizados = Bilhete.where(status: 2)
+    @bilhetes_pendentes = current_user.bilhetes.where(status: 0)
+    @bilhetes_ativos = current_user.bilhetes.where(status: 1)
+    @bilhetes_finalizados = current_user.bilhetes.where(status: 2)
   end
 
   def show
@@ -41,8 +52,20 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:nome, :endereco, :cpf, :telefone, :email, :password)
+    params.require(:user).permit(:nome, :endereco, :cpf, :telefone, :email, :password, :perfil_id)
   end
 
+  protected
 
+  def user_home
+    redirect_to users_path
+  end
+
+  def ponto_venda_home
+    redirect_to new_user_bilhetepv_path(current_user)
+  end
+
+  def error_home
+    redirect_to destroy_user_session_path, notice: "Login e/ou Senha inválido"
+  end
 end

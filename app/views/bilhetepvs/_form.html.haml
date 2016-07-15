@@ -1,0 +1,11 @@
+= simple_form_for([current_user, @bilhetepv]) do |f|
+  = f.input :placa_veiculo, label: "Placa do Veículo", placeholder: "Digite a placa do veículo - exemplo AAA-1234"
+  = f.input :telefone, label: "Telefone", placeholder: "Digite o telefone do cliente com DDD - Somente números"
+  = f.input :setor_id, label: "Setor", collection: Setor.all.order(cor: :asc), label_method: :cor, value_method: :id, include_blank: false, require: true, prompt: "Selecione o setor que irá estacional"
+  = f.input :periodo, label: "Periodos", collection: [["1 Período", 1], ["2 Periodos", 2]], include_blank: false, require: true, prompt: "Selecione quantos períodos deseja?"
+  = f.input :forma_pagamento, label: "Forma de Pagamento", collection: [["Dinheiro", 1], ["Cartão de Crédito", 2], ["Cartão de Débito", 3]], include_blank: false, require: true, prompt: "Selecione a forma de pagamento"
+  = f.input :vendido_por, as: :hidden, input_html: { value: 1 }
+  = f.input :status, as: :hidden, input_html: { value: 1 }
+  = f.input :ativado_em, as: :hidden, input_html: { value: Time.current }
+  = f.input :cnpj, as: :hidden, input_html: { value: current_user.cnpj }
+  = f.submit "Comprar Bilhete", class: "btn btn-primary pull-right"

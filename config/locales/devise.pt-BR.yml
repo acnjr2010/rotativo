@@ -89,6 +89,21 @@ pt-BR:
               blank: "Deve selecionar um setor para estacionar"
             periodo:
               blank: "Deve selecionar a quantidade de períodos que pretende ficar estacionado"
+        bilhetepv:
+          attributes:
+            placa_veiculo:
+              blank: "O campo veículo não deve ficar em branco"
+              invalid: "Formato invalido, o formato deve ser AAA-1234"
+            setor_id:
+              blank: "Deve selecionar um setor para estacionar"
+            periodo:
+              blank: "Deve selecionar a quantidade de períodos que pretende ficar estacionado"
+            telefone:
+              blank: "O campo telefone não pode ficar em branco"
+              too_short: "Número invalido"
+              not_a_number: "Formato inválido, por favor digite somente números"
+            forma_pagamento:
+              blank: "Selecione a forma de pagamento"
         veiculo:
           attributes:
             placa_veiculo:
@@ -98,3 +113,8 @@ pt-BR:
               blank: "Modelo do veículo não pode ficar em branco"
             cor:
               blank: "Cor do veículo deve ser informado"
+  will_paginate:
+    next_label: "Próximo"
+    previous_label: "Anterior"
+    next_page: "Próxima Página"
+    previous_page: "Página Anterior"

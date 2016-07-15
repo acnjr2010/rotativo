@@ -1,0 +1,48 @@
+%h1 Dados do Bilhete
+%hr
+.wrapper
+  %h5
+    %p
+      Número do Bilhete:
+      = @bilhetepv.bilhete
+%hr
+.wrapper
+  %h5
+    %p
+      Valor do Bilhete:
+      = number_to_currency(@bilhetepv.valor_bilhete, separator: ",", delimiter: ".", unit: "R$ ")
+%hr
+.wrapper
+  %h5
+    %p
+      Placa Registrada:
+      = @bilhetepv.placa_veiculo
+%hr
+.wrapper
+  %h5
+    %p
+      Telefone do Proprietário do Bilhete:
+      = @bilhetepv.telefone
+%hr
+.wrapper
+  %h5
+    %p
+      Setor do Bilhete:
+      = Setor.find(@bilhetepv.setor_id).cor
+%hr
+.wrapper
+  %h5
+    %p
+      Quantidade de Períodos:
+      = @bilhetepv.periodo
+%hr
+.wrapper
+  %h5
+    %p
+      Forma de Pagamento:
+      - if @bilhetepv.forma_pagamento == 1
+        Dinheiro
+      - elsif @bilhetepv.forma_pagamento == 2
+        Cartão de Crédito
+      - elsif @bilhetepv.forma_pagamento == 3
+        Cartão de Débito
