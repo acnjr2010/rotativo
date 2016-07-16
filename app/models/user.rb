@@ -11,12 +11,10 @@ class User < ActiveRecord::Base
   belongs_to :perfil
 
   validates :nome, :email, :cpf, :endereco, :telefone, :perfil_id, presence: true
-  validates_cpf :cpf
   validates_length_of :cpf, maximum: 14
   validates_length_of :telefone, minimum: 8, maximum: 14
   validates :telefone, numericality: true
   validates_length_of :endereco, in: 10..130
   validates_uniqueness_of :email, :cpf
-  validates_format_of :telefone, with: //, on: :create
-  validates_format_of :email, with: //, on: :create
+  validates_format_of :cpf, with: /[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}$|^\d[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}\z/, on: :create
 end

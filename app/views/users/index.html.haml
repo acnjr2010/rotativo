@@ -17,91 +17,103 @@
     %p
       %h4 Bilhete Ativo
       %br
-      %table.table.table-striped
-        %thead
-          %tr
-            %th Bilhete
-            %th Setor
-            %th Placa do Veículo
-            %th Periodos
-            %th Ativado em
-            %th Renovar
-
-        - @bilhetes_ativos.each do |bilhete|
-          %tbody
+      - if @bilhetes_ativos.count == 0
+        Você não possui bilhetes ativos
+      - else
+        %table.table.table-striped
+          %thead
             %tr
-              %td= bilhete.bilhete
-              %td= Setor.find(bilhete.setor_id).cor
-              %td= bilhete.placa_veiculo
-              %td
-                = bilhete.periodo
-                período(s) comprado(s)
-              %td= time_tag bilhete.ativado_em
-              %td= link_to "Renovar", renovar_bilhete_path(bilhete), class: 'btn btn-success' if bilhete.periodo == 1
+              %th Bilhete
+              %th Setor
+              %th Placa do Veículo
+              %th Periodos
+              %th Ativado em
+              %th Renovar
+
+          - @bilhetes_ativos.each do |bilhete|
+            %tbody
+              %tr
+                %td= bilhete.bilhete
+                %td= Setor.find(bilhete.setor_id).cor
+                %td= bilhete.placa_veiculo
+                %td
+                  = bilhete.periodo
+                  período(s) comprado(s)
+                %td= time_tag bilhete.ativado_em
+                %td= link_to "Renovar", renovar_bilhete_path(bilhete), class: 'btn btn-success' if bilhete.periodo == 1
       %hr
 
     %p
       %h4 Bilhete Pendentes
       %br
-      %table.table.table-striped
-        %thead
-          %tr
-            %th Bilhete
-            %th Setor
-            %th Placa do Veículo
-            %th Periodos
-            %th Ativar
-
-        - @bilhetes_pendentes.each do |bilhete|
-          %tbody
+      - if @bilhetes_pendentes.count == 0
+        Você não possui bilhetes inativos esperando ativação
+      - else
+        %table.table.table-striped
+          %thead
             %tr
-              %td= bilhete.bilhete
-              %td= Setor.find(bilhete.setor_id).cor
-              %td= bilhete.placa_veiculo
-              %td
-                = bilhete.periodo
-                período(s) comprado(s)
-              %td= link_to "Ativar", ativar_bilhete_path(bilhete), class: 'btn btn-primary'
+              %th Bilhete
+              %th Setor
+              %th Placa do Veículo
+              %th Periodos
+              %th Ativar
+
+          - @bilhetes_pendentes.each do |bilhete|
+            %tbody
+              %tr
+                %td= bilhete.bilhete
+                %td= Setor.find(bilhete.setor_id).cor
+                %td= bilhete.placa_veiculo
+                %td
+                  = bilhete.periodo
+                  período(s) comprado(s)
+                %td= link_to "Ativar", ativar_bilhete_path(bilhete), class: 'btn btn-primary'
       %hr
 
     %p
       %h4 Meus Veiculos
-      %table.table.table-striped
-        %thead
-        - if Veiculo.any?
-          %th Modelo
-          %th Placa
-          - @user.veiculos.order(modelo: :asc).each do |veiculo|
-            %tr
-              %td
-                = link_to veiculo.modelo, veiculo
-              %td
-                = veiculo.placa_veiculo.upcase
+      - if current_user.veiculos.count == 0
+        Você não possui veiculos cadastrados
+      - else
+        %table.table.table-striped
+          %thead
+            %th Modelo
+            %th Placa
+            - @user.veiculos.order(modelo: :asc).each do |veiculo|
+              %tr
+                %td
+                  = link_to veiculo.modelo, veiculo
+                %td
+                  = veiculo.placa_veiculo.upcase
 
-      = link_to "Cadastrar Veículo", new_veiculo_path
+      %p
+        = link_to "Cadastrar Veículo", new_veiculo_path
       %hr
 
     %p
       %h4 Históricos de Compras(Bilhetes Finalizados)
       %br
-      %table.table.table-striped
-        %thead
-          %tr
-            %th Bilhete
-            %th Setor
-            %th Placa do Veículo
-            %th Periodos
-            %th Finalizado
-        - @bilhetes_finalizados.each do |bilhete|
-          %tbody
+      - if @bilhetes_finalizados.count == 0
+        Você não possui histórico com bilhetes finalizados
+      - else
+        %table.table.table-striped
+          %thead
             %tr
-              %td= bilhete.bilhete
-              %td= Setor.find(bilhete.setor_id).cor
-              %td= bilhete.placa_veiculo
-              %td
-                = bilhete.periodo
-                período(s) comprado(s)
-              %td= time_tag bilhete.updated_at
+              %th Bilhete
+              %th Setor
+              %th Placa do Veículo
+              %th Periodos
+              %th Finalizado
+          - @bilhetes_finalizados.each do |bilhete|
+            %tbody
+              %tr
+                %td= bilhete.bilhete
+                %td= Setor.find(bilhete.setor_id).cor
+                %td= bilhete.placa_veiculo
+                %td
+                  = bilhete.periodo
+                  período(s) comprado(s)
+                %td= time_tag bilhete.updated_at
       %hr
     %p
       %h4 Comprar Novo Bilhete

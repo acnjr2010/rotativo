@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.mask.min.js
 //= require jasny-bootstrap.min.js
 //= require bootstrap-sprockets
 //= require angular
