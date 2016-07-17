@@ -4,11 +4,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  belongs_to :perfil
   has_many :veiculos
   has_many :vendas
   has_many :bilhetes
   has_many :bilhetepvs
-  belongs_to :perfil
+  has_many :orders
+
 
   validates :nome, :email, :cpf, :endereco, :telefone, :perfil_id, presence: true
   validates_length_of :cpf, maximum: 14

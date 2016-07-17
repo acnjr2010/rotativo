@@ -66,6 +66,6 @@ class UsersController < ApplicationController
   end
 
   def error_home
-    redirect_to destroy_user_session_path, notice: "Login e/ou Senha inválido"
+    redirect_to new_user_session_path, notice: "Login e/ou Senha inválido"
   end
 end

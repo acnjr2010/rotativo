@@ -1,5 +1,4 @@
 class Bilhete < ActiveRecord::Base
-  has_many :vendas
   belongs_to :user
   belongs_to :veiculo
 

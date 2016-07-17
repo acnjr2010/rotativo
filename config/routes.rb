@@ -3,12 +3,16 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users do
-    resources :vendas
     resources :bilhetes
     resources :bilhetepvs
+    resources :orders do
+      resources :produtos
+    end
+    #resource :checkout, only: [:create]
   end
 
   resources :veiculos
+  resource :notifications, only: [:create]
 
   get "bilhetes/ativar/:id", controller: 'bilhetes', action: 'ativar_bilhete', as: "ativar_bilhete"
   get "bilhetes/renovar/:id", controller: 'bilhetes', action: 'renovar_bilhete', as: "renovar_bilhete"
@@ -19,6 +23,7 @@ Rails.application.routes.draw do
   get "bilhetepvs/lista_venda_credito", controller: 'bilhetepvs', action: 'listar_venda_credito', as: "listar_venda_credito"
   get "bilhetepvs/lista_venda_debito", controller: 'bilhetepvs', action: 'listar_venda_debito', as: "listar_venda_debito"
   get "bilhetepvs/renovar/:id", controller: 'bilhetepvs', action: 'renovar_bilhetepv', as: "renovar_bilhetepv"
+  get "users/:user_id/checkout/:id", controller: 'checkout', action: 'create'
 
   root "users#home"
 
