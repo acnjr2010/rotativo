@@ -7,8 +7,6 @@ class UsersController < ApplicationController
       user_home
     when 2
       ponto_venda_home
-    else
-      error_home
     end
   end
 
@@ -26,6 +24,7 @@ class UsersController < ApplicationController
     @bilhetes_pendentes = current_user.bilhetes.where(status: 0)
     @bilhetes_ativos = current_user.bilhetes.where(status: 1)
     @bilhetes_finalizados = current_user.bilhetes.where(status: 2)
+    @bilhetes_nao_finalizados = current_user.bilhetes.where(status: nil)
   end
 
   def show
@@ -63,9 +62,5 @@ class UsersController < ApplicationController
 
   def ponto_venda_home
     redirect_to new_user_bilhetepv_path(current_user)
-  end
-
-  def error_home
-    redirect_to new_user_session_path, notice: "Login e/ou Senha inválido"
   end
 end

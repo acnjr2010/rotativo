@@ -45,6 +45,9 @@ GEM
     arel (6.0.3)
     autoprefixer-rails (6.3.6.2)
       execjs
+    aws-sdk-v1 (1.66.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -138,6 +141,8 @@ GEM
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
+    open-uri-s3 (1.6.0)
+      aws-sdk-v1
     orm_adapter (0.5.0)
     pagseguro-oficial (2.6.0)
       aitch (~> 0.2)
@@ -285,6 +290,8 @@ DEPENDENCIES
   haml (~> 4.0, >= 4.0.7)
   jbuilder (~> 2.0)
   jquery-rails
+  nokogiri (~> 1.6, >= 1.6.8)
+  open-uri-s3 (~> 1.6)
   pagseguro-oficial (~> 2.6)
   pg (~> 0.15)
   pry-rails (~> 0.3.4)

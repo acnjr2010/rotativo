@@ -1,0 +1,52 @@
+.wrapper
+  %h3
+    Olá, Sr.
+    = current_user.nome
+    %br
+
+  %h3
+    Este bilhete já foi gerado, segue as informações abaixo:
+
+  %hr
+  .wrapper
+    %p
+      %h4
+        Bilhete:
+        = @bilhete.bilhete
+    %br
+    %p
+      %h4
+        Transação:
+        = @bilhete.transaction_id
+    %br
+    %p
+      %h4
+        Gerado:
+        = time_tag @bilhete.created_at
+    %br
+    %p
+      %h4
+        Ativado:
+        = time_tag @bilhete.ativado_em
+    %br
+    %p
+      %h4
+        Setor:
+        - if @bilhete.setor_id == 1
+          Azul
+        - else
+          Verde
+    %br
+    %p
+      %h4
+        Períodos Adquiridos:
+        = @bilhete.periodo
+
+    %hr
+    %br
+    %br
+    %br
+    .pull-right
+      Atenciosamente
+      %br
+      Itaboraí Rotativo.

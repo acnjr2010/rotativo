@@ -60,6 +60,8 @@ pt-BR:
         other: "%{count} erros impediram a gravação de %{resource} :"
   activerecord:
     errors:
+      messages:
+        record_invalid: "Foi impossível salvar as informações"
       models:
         user:
           attributes:
@@ -104,6 +106,12 @@ pt-BR:
               not_a_number: "Formato inválido, por favor digite somente números"
             forma_pagamento:
               blank: "Selecione a forma de pagamento"
+        order:
+          attributes:
+            produto_id:
+              blank: "Deve selecionar o setor"
+            price:
+              blank: "Deve selecionar a quantidade de períodos"
         veiculo:
           attributes:
             placa_veiculo:

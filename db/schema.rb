@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160716182943) do
+ActiveRecord::Schema.define(version: 20160718181107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 20160716182943) do
 
   create_table "bilhetes", force: :cascade do |t|
     t.float    "valor_bilhete"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "user_id"
     t.string   "placa_veiculo"
     t.integer  "periodo"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 20160716182943) do
     t.string   "bilhete"
     t.integer  "status"
     t.integer  "setor_id"
+    t.boolean  "gerado",         default: false
+    t.string   "transaction_id"
   end
 
   add_index "bilhetes", ["setor_id"], name: "index_bilhetes_on_setor_id", using: :btree
@@ -64,15 +66,17 @@ ActiveRecord::Schema.define(version: 20160716182943) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "produto_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "setor_id"
     t.integer  "user_id"
-    t.float    "price"
+    t.float    "valor_bilhete"
     t.text     "description"
+    t.string   "transaction_id"
+    t.integer  "periodo"
   end
 
-  add_index "orders", ["produto_id"], name: "index_orders_on_produto_id", using: :btree
+  add_index "orders", ["setor_id"], name: "index_orders_on_setor_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "perfils", force: :cascade do |t|

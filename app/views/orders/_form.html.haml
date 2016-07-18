@@ -1,3 +1,4 @@
 = simple_form_for([current_user, @order]) do |f|
-  = f.input :produto_id, label: "Selecione o produto", collection: Produto.all.order(description: :asc), label_method: :description, value_method: :id, include_blank: false, require: true, prompt: "Selecione o bilhete desejado"
+  = f.input :setor_id, label: "Selecione o setor", collection: Setor.all.order(cor: :asc), label_method: :cor, value_method: :id, include_blank: false, require: true, prompt: "Selecione o setor desejado"
+  = f.input :periodo, label: "Periodos", collection: [["1 Período", 1], ["2 Periodos", 2]], include_blank: false, require: true, prompt: "Selecione quantos períodos deseja?"
   = f.submit "Comprar Bilhete", class: "btn btn-primary pull-right"

@@ -8,43 +8,25 @@ class CheckoutController < ApplicationController
       order = Order.find(params[:id])
 
       payment = PagSeguro::PaymentRequest.new
+      #payment.credentials = PagSeguro::AccountCredentials.new('nogueira_junior@yahoo.com.br', '1CB53BF644F24A79863390C087CD0E29')
       payment.credentials = PagSeguro::AccountCredentials.new('nogueira_junior@yahoo.com.br', '2DC455CCF0034741B51CAE3FFEE25C86')
       payment.reference = order.id
+      payment.abandon_url =  "localhost:3000/users/#{current_user.id}/problema_pagamento"
       payment.notification_url = notifications_url
-      payment.redirect_url = "https://sandbox.pagseguro.uol.com.br"
+      payment.redirect_url = "localhost:3000/users/#{current_user.id}/consulta"
 
-      #order.produto.each do |product|
+      payment.items << {
+        id: order.setor_id,
+        description: Setor.find(order.setor_id).cor,
+        amount: order.valor_bilhete,
+        weight: 0
+      }
 
-        payment.items << {
-          id: order.produto.id,
-          description: order.produto.description,
-          amount: "4,00",
-          weight: 0
-        }
-
-        payment.sender = {
-          name: current_user.nome,
-          email: "c56244240426840483280@sandbox.pagseguro.com.br",
-          document: { type: "CPF", value: "21639716866" },
-          phone: {
-            area_code: 13,
-            number: "12345678"
-          }
-        }
-
-        #puts "=> REQUEST"
-        #puts PagSeguro::PaymentRequest::RequestSerializer.new(payment).to_params
-
-        #response = payment.register
-
-        #puts
-        #puts "=> RESPONSE"
-        #puts response.url
-        #puts response.code
-        #puts response.created_at
-        #puts response.errors.to_a
-        byebug
-      #end
+      payment.sender = {
+        name: current_user.nome,
+        email: "c56244240426840483280@sandbox.pagseguro.com.br",
+        document: { type: "CPF", value: current_user.cpf },
+      }
 
       response = payment.register
       # Caso o processo de checkout tenha dado errado, lança uma exceção.
@@ -52,10 +34,45 @@ class CheckoutController < ApplicationController
       # exception_notification poderá notificar sobre o ocorrido.
       #
       # Se estiver tudo certo, redireciona o comprador para o PagSeguro.
+
       if response.errors.any?
         raise response.errors.join("\n")
       else
         redirect_to response.url
+      end
+    end
+
+    def consulta_venda
+      @transacao = params[:transaction_id]
+
+      #@xml_pagseguro = Nokogiri::XML(open("https://ws.pagseguro.uol.com.br/v3/transactions/#{@transacao}/?email=nogueira_junior@yahoo.com.br&token=1CB53BF644F24A79863390C087CD0E29"))
+      @xml_pagseguro = Nokogiri::XML(open("https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/#{@transacao}/?email=nogueira_junior@yahoo.com.br&token=2DC455CCF0034741B51CAE3FFEE25C86"))
+      @status = @xml_pagseguro.css('status').children.first.content
+      @valor = @xml_pagseguro.css('amount').children.first.content
+      @setor = @xml_pagseguro.css('description').children.first.content
+
+
+      if @status === "3"
+        @order = Order.where(user: current_user).last
+        @order.update_attributes(transaction_id: @transacao)
+
+        @order.save
+        redirect_to new_user_bilhete_path(current_user)
+      else
+        redirect_to tela_erro_path
+      end
+    end
+
+    def tela_erro
+    end
+
+    private
+
+    def valor_bilhete(order)
+      if order.price == 1
+        return 2.00
+      else
+        return 4.00
       end
     end
 end
