@@ -8,8 +8,8 @@ class CheckoutController < ApplicationController
       order = Order.find(params[:id])
 
       payment = PagSeguro::PaymentRequest.new
-      #payment.credentials = PagSeguro::AccountCredentials.new('nogueira_junior@yahoo.com.br', '1CB53BF644F24A79863390C087CD0E29')
-      payment.credentials = PagSeguro::AccountCredentials.new('nogueira_junior@yahoo.com.br', '2DC455CCF0034741B51CAE3FFEE25C86')
+      payment.credentials = PagSeguro::AccountCredentials.new('nogueira_junior@yahoo.com.br', '1CB53BF644F24A79863390C087CD0E29')
+      #payment.credentials = PagSeguro::AccountCredentials.new('nogueira_junior@yahoo.com.br', '2DC455CCF0034741B51CAE3FFEE25C86')
       payment.reference = order.id
       payment.abandon_url =  "itaborai-rotativo.herokuapp.com/users/#{current_user.id}/problema_pagamento"
       payment.notification_url = notifications_url
@@ -24,7 +24,8 @@ class CheckoutController < ApplicationController
 
       payment.sender = {
         name: current_user.nome,
-        email: "c56244240426840483280@sandbox.pagseguro.com.br",
+        email: current_user.email
+        #email: "c5624424042684048328@sandbox.pagseguro.com.br",
         document: { type: "CPF", value: current_user.cpf },
       }
 
@@ -45,8 +46,8 @@ class CheckoutController < ApplicationController
     def consulta_venda
       @transacao = params[:transaction_id]
 
-      #@xml_pagseguro = Nokogiri::XML(open("https://ws.pagseguro.uol.com.br/v3/transactions/#{@transacao}/?email=nogueira_junior@yahoo.com.br&token=1CB53BF644F24A79863390C087CD0E29"))
-      @xml_pagseguro = Nokogiri::XML(open("https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/#{@transacao}/?email=nogueira_junior@yahoo.com.br&token=2DC455CCF0034741B51CAE3FFEE25C86"))
+      @xml_pagseguro = Nokogiri::XML(open("https://ws.pagseguro.uol.com.br/v3/transactions/#{@transacao}/?email=nogueira_junior@yahoo.com.br&token=1CB53BF644F24A79863390C087CD0E29"))
+      #@xml_pagseguro = Nokogiri::XML(open("https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/#{@transacao}/?email=nogueira_junior@yahoo.com.br&token=2DC455CCF0034741B51CAE3FFEE25C86"))
       @status = @xml_pagseguro.css('status').children.first.content
       @valor = @xml_pagseguro.css('amount').children.first.content
       @setor = @xml_pagseguro.css('description').children.first.content
