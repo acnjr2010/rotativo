@@ -26,7 +26,7 @@ class CheckoutController < ApplicationController
         name: current_user.nome,
         email: current_user.email
         #email: "c5624424042684048328@sandbox.pagseguro.com.br",
-        document: { type: "CPF", value: current_user.cpf },
+        #document: { type: "CPF", value: current_user.cpf },
       }
 
       response = payment.register
