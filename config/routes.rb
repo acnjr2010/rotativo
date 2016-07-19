@@ -5,9 +5,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :bilhetes
     resources :bilhetepvs
-    resources :orders do
-      resources :produtos
-    end
+    resources :orders
     #resource :checkout, only: [:create]
   end
 

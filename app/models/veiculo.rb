@@ -2,7 +2,6 @@ class Veiculo < ActiveRecord::Base
   before_save :veiculo_upcase
 
   belongs_to :user
-  has_many :vendas
   has_many :bilhetes
   has_many :bilhetepvs
 

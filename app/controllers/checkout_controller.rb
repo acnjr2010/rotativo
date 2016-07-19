@@ -11,9 +11,9 @@ class CheckoutController < ApplicationController
       #payment.credentials = PagSeguro::AccountCredentials.new('nogueira_junior@yahoo.com.br', '1CB53BF644F24A79863390C087CD0E29')
       payment.credentials = PagSeguro::AccountCredentials.new('nogueira_junior@yahoo.com.br', '2DC455CCF0034741B51CAE3FFEE25C86')
       payment.reference = order.id
-      payment.abandon_url =  "localhost:3000/users/#{current_user.id}/problema_pagamento"
+      payment.abandon_url =  "itaborai-rotativo.herokuapp.com/users/#{current_user.id}/problema_pagamento"
       payment.notification_url = notifications_url
-      payment.redirect_url = "localhost:3000/users/#{current_user.id}/consulta"
+      payment.redirect_url = "itaborai-rotativo.herokuapp.com/users/#{current_user.id}/consulta"
 
       payment.items << {
         id: order.setor_id,
@@ -61,7 +61,7 @@ class CheckoutController < ApplicationController
         if current_user.perfil_id == 1
           redirect_to new_user_bilhete_path(current_user)
         else
-          
+
           @bilhetepv = current_user.bilhetepvs.build
           @bilhetepv.update_attributes(valor_bilhete: @order.valor_bilhete, placa_veiculo: @order.placa_veiculo, telefone: @order.telefone, setor_id: @order.setor_id, periodo: @order.periodo, forma_pagamento: @order.forma_pagto, vendido_por: @order.vendido_por, status: @order.status, ativado_em: @order.ativado_em, cnpj: @order.cnpj, transaction_id: @order.transaction_id, bilhete: nro_bilhete)
 

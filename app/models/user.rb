@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
 
   belongs_to :perfil
   has_many :veiculos
-  has_many :vendas
   has_many :bilhetes
   has_many :bilhetepvs
   has_many :orders
