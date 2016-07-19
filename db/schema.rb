@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718181107) do
+ActiveRecord::Schema.define(version: 20160719044039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20160718181107) do
     t.string   "bilhete"
     t.integer  "status"
     t.datetime "ativado_em"
+    t.string   "transaction_id"
   end
 
   add_index "bilhetepvs", ["user_id"], name: "index_bilhetepvs_on_user_id", using: :btree
@@ -74,6 +75,13 @@ ActiveRecord::Schema.define(version: 20160718181107) do
     t.text     "description"
     t.string   "transaction_id"
     t.integer  "periodo"
+    t.string   "placa_veiculo"
+    t.string   "telefone"
+    t.integer  "forma_pagto"
+    t.integer  "vendido_por"
+    t.integer  "status"
+    t.datetime "ativado_em"
+    t.string   "cnpj"
   end
 
   add_index "orders", ["setor_id"], name: "index_orders_on_setor_id", using: :btree

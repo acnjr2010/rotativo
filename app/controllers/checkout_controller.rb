@@ -57,7 +57,16 @@ class CheckoutController < ApplicationController
         @order.update_attributes(transaction_id: @transacao)
 
         @order.save
-        redirect_to new_user_bilhete_path(current_user)
+
+        if current_user.perfil_id == 1
+          redirect_to new_user_bilhete_path(current_user)
+        else
+          
+          @bilhetepv = current_user.bilhetepvs.build
+          @bilhetepv.update_attributes(valor_bilhete: @order.valor_bilhete, placa_veiculo: @order.placa_veiculo, telefone: @order.telefone, setor_id: @order.setor_id, periodo: @order.periodo, forma_pagamento: @order.forma_pagto, vendido_por: @order.vendido_por, status: @order.status, ativado_em: @order.ativado_em, cnpj: @order.cnpj, transaction_id: @order.transaction_id, bilhete: nro_bilhete)
+
+          redirect_to user_bilhetepv_path(current_user, @bilhetepv)
+        end
       else
         redirect_to tela_erro_path
       end
@@ -73,6 +82,21 @@ class CheckoutController < ApplicationController
         return 2.00
       else
         return 4.00
+      end
+    end
+
+    def nro_bilhete
+      cod = "AAA" #comando para chamar o código do bilhete
+      nro = rand(1..99999999)
+      bilhete = cod+nro.to_s
+
+      bilhetes = Bilhete.all.map{ |bilh| bilh.bilhete  }
+      bilhetespv = Bilhetepv.all.map{ |bilh| bilh.bilhete }
+
+      if bilhetes.include?(bilhete) || bilhetespv.include?(bilhete)
+        nro_bilhete
+      else
+        bilhete
       end
     end
 end

@@ -21,9 +21,6 @@
               hora
             - elsif setor.tempo == 2
               horas
-            - elsif setor.tempo.nil?
-              isenta
-
           %td= number_to_currency(setor.preco_periodo, separator: ",", delimiter: ".", unit: "R$ ")
 
   = render 'form'

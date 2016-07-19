@@ -61,6 +61,6 @@ class UsersController < ApplicationController
   end
 
   def ponto_venda_home
-    redirect_to new_user_bilhetepv_path(current_user)
+    redirect_to new_user_order_path(current_user)
   end
 end
