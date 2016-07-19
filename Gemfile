@@ -24,6 +24,8 @@ gem 'geocoder'
 gem 'gmaps4rails'
 gem 'whenever', '~> 0.9.7', :require => false
 gem 'will_paginate', '~> 3.1'
+gem 'nokogiri', '~> 1.6', '>= 1.6.8'
+gem 'open-uri-s3', '~> 1.6'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

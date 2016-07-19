@@ -2,17 +2,18 @@ class BilhetesController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @bilhete = current_user.bilhetes.build
+    @order = Order.where(user: current_user).last
+    @bilhete = current_user.bilhetes.build(transaction_id: @order.transaction_id, user_id: current_user, gerado: false, placa_veiculo: "AAA-1111", valor_bilhete: @order.valor_bilhete, setor_id: @order.setor_id)
+    @bilhete.save!
     @veiculo = current_user.veiculos
     @setores = Setor.all
   end
 
   def create
-    @setores = Setor.all
-
+    @order = Order.where(user: current_user).last
     params[:bilhete][:bilhete] = nro_bilhete
-    params[:bilhete][:valor_bilhete] = calculo_bilhete(params[:bilhete][:periodo], params[:bilhete][:setor_id]) if params[:bilhete][:periodo] && params[:bilhete][:setor_id] != ""
-    @bilhete = current_user.bilhetes.build(bilhete_params)
+    @bilhete = current_user.bilhetes.where(user_id: current_user).last
+    @bilhete.update_attributes(:setor_id, :placa_veiculo, :bilhete, :periodo, :ativado_em, :vendido_por, :status, :gerado)
 
     respond_to do |format|
       if @bilhete.save
@@ -22,6 +23,30 @@ class BilhetesController < ApplicationController
         format.html { render :new }
         format.json { render json: @bilhete.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def edit
+    @bilhete = Bilhete.find(params[:id])
+    @order = Order.where(transaction_id: @bilhete.transaction_id).last
+  end
+
+  def update
+    @order = Order.where(user: current_user).last
+    params[:bilhete][:bilhete] = nro_bilhete
+    @bilhete = Bilhete.find(params[:id])
+    if @bilhete.gerado == false && @bilhete.transaction_id != ""
+      respond_to do |format|
+        if @bilhete.update(params.require(:bilhete).permit(:valor_bilhete, :setor_id, :placa_veiculo, :bilhete, :periodo, :ativado_em, :vendido_por, :status, :gerado))
+          format.html { redirect_to users_path, notice: "Bilhete gerado com sucesso" }
+          format.json { render :show, status: :ok, location: @bilhete }
+        else
+          format.html { render :edit }
+          format.json { render json: @bilhete.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      redirect_to bilhete_gerado_path
     end
   end
 
@@ -54,10 +79,14 @@ class BilhetesController < ApplicationController
     end
   end
 
+  def bilhete_gerado
+    @bilhete = Bilhete.find(params[:id])
+  end
+
   private
 
   def bilhete_params
-    params.require(:bilhete).permit(:valor_bilhete, :setor_id, :placa_veiculo, :bilhete, :periodo, :ativado_em, :vendido_por, :status, :user_id)
+    params.require(:bilhete).permit(:valor_bilhete, :setor_id, :placa_veiculo, :bilhete, :periodo, :ativado_em, :vendido_por, :status, :user_id, :gerado, :transaction_id)
   end
 
   def nro_bilhete
@@ -73,11 +102,5 @@ class BilhetesController < ApplicationController
     else
       bilhete
     end
-  end
-
-  def calculo_bilhete(periodo, setor_id)
-    preco = Setor.find(setor_id).preco_periodo
-
-    valor_bilhete = periodo.to_i * preco
   end
 end

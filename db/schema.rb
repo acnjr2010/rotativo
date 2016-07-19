@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160714210553) do
+ActiveRecord::Schema.define(version: 20160719044039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,14 +32,15 @@ ActiveRecord::Schema.define(version: 20160714210553) do
     t.string   "bilhete"
     t.integer  "status"
     t.datetime "ativado_em"
+    t.string   "transaction_id"
   end
 
   add_index "bilhetepvs", ["user_id"], name: "index_bilhetepvs_on_user_id", using: :btree
 
   create_table "bilhetes", force: :cascade do |t|
     t.float    "valor_bilhete"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "user_id"
     t.string   "placa_veiculo"
     t.integer  "periodo"
@@ -48,6 +49,8 @@ ActiveRecord::Schema.define(version: 20160714210553) do
     t.string   "bilhete"
     t.integer  "status"
     t.integer  "setor_id"
+    t.boolean  "gerado",         default: false
+    t.string   "transaction_id"
   end
 
   add_index "bilhetes", ["setor_id"], name: "index_bilhetes_on_setor_id", using: :btree
@@ -63,10 +66,38 @@ ActiveRecord::Schema.define(version: 20160714210553) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "setor_id"
+    t.integer  "user_id"
+    t.float    "valor_bilhete"
+    t.text     "description"
+    t.string   "transaction_id"
+    t.integer  "periodo"
+    t.string   "placa_veiculo"
+    t.string   "telefone"
+    t.integer  "forma_pagto"
+    t.integer  "vendido_por"
+    t.integer  "status"
+    t.datetime "ativado_em"
+    t.string   "cnpj"
+  end
+
+  add_index "orders", ["setor_id"], name: "index_orders_on_setor_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
   create_table "perfils", force: :cascade do |t|
     t.string   "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "produtos", force: :cascade do |t|
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.float    "price"
   end
 
   create_table "setors", force: :cascade do |t|

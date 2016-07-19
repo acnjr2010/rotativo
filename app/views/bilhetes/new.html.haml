@@ -1,29 +1,3 @@
-%h2 Comprar Bilhete
-
-%h5 Tabela de Preços
-
-%table.table.table-striped
-  %thead
-    %tr
-      %th Setor
-      %th Período
-      %th Tempo
-      %th Valor
-  %tbody
-    - @setores.each do |setor|
-      %tr
-        %td= setor.cor
-        %td unitário
-        %td
-          = setor.tempo
-          - if setor.tempo == 1
-            hora
-          - elsif setor.tempo == 2
-            horas
-          - elsif setor.tempo.nil?
-            isenta
-
-        %td= number_to_currency(setor.preco_periodo, separator: ",", delimiter: ".", unit: "R$ ")
-
+%h2 Gerar Bilhete
 
 = render 'form'

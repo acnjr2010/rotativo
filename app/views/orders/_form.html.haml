@@ -1,15 +1,10 @@
 - if current_user.perfil_id == 1
-  = simple_form_for([current_user, @bilhete]) do |f|
-    = f.input :placa_veiculo, label: "Placa do Veículo", hint: "#{link_to 'Cadastrar Veiculo', new_veiculo_path, target: "_blank"}".html_safe, collection: current_user.veiculos, label_method: :modelo, value_method: :placa_veiculo, require: true, include_blank: false, prompt: "Selecione seu veículo"
-    = f.input :setor_id, as: :hidden, input_html: { value: @order.setor_id }
-    = f.input :periodo, as: :hidden, input_html: { value: @order.periodo }
-    = f.input :vendido_por, as: :hidden, input_html: { value: 1 }
-    = f.input :status, as: :hidden, input_html: { value: 0 }
-    = f.input :ativado_em, as: :hidden, input_html: { value: Time.current }
-    = f.input :gerado, as: :hidden, input_html: { value: true }
-    = f.submit "Gerar Bilhete", class: "btn btn-primary pull-right"
+  = simple_form_for([current_user, @order]) do |f|
+    = f.input :setor_id, label: "Selecione o setor", collection: Setor.all.order(cor: :asc), label_method: :cor, value_method: :id, include_blank: false, require: true, prompt: "Selecione o setor desejado"
+    = f.input :periodo, label: "Periodos", collection: [["1 Período", 1], ["2 Periodos", 2]], include_blank: false, require: true, prompt: "Selecione quantos períodos deseja?"
+    = f.submit "Comprar Bilhete", class: "btn btn-primary pull-right"
 - else
-  = simple_form_for([current_user, @bilhetepv]) do |f|
+  = simple_form_for([current_user, @order]) do |f|
     = f.input :placa_veiculo, label: "Placa do Veículo", placeholder: "Digite a placa do veículo - exemplo AAA-1234"
     = f.input :telefone, label: "Telefone", placeholder: "Digite o telefone do cliente com DDD - Somente números"
     = f.input :setor_id, label: "Setor", collection: Setor.all.order(cor: :asc), label_method: :cor, value_method: :id, include_blank: false, require: true, prompt: "Selecione o setor que irá estacional"

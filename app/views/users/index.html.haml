@@ -15,7 +15,39 @@
 .row-fluid
   .wrapper
     %p
-      %h4 Bilhete Ativo
+      %h4 Bilhetes Não Finalizados
+      %br
+      - if @bilhetes_nao_finalizados.count == 0
+        Você não possui bilhetes que não foram finalizados
+      - else
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Compra
+              %th Valor
+              %th Setor
+              %th Períodos
+              %th Gerar seu bilhete
+          - @bilhetes_nao_finalizados.each do |bilhete|
+            %tbody
+              %tr
+                %td= bilhete.transaction_id
+                %td= number_to_currency(bilhete.valor_bilhete, separator: ",", delimiter: ".", unit: "R$ ")
+                %td
+                  - if bilhete.setor_id == 1
+                    Azul
+                  - else
+                    Verde
+                %td
+                  = bilhete.periodo
+                  período(s) comprado(s)
+                %td
+                  = link_to "Gerar Bilhete", edit_user_bilhete_path(current_user, bilhete)
+
+      %hr
+
+    %p
+      %h4 Bilhetes Ativos
       %br
       - if @bilhetes_ativos.count == 0
         Você não possui bilhetes ativos
@@ -44,7 +76,7 @@
       %hr
 
     %p
-      %h4 Bilhete Pendentes
+      %h4 Bilhetes Pendentes
       %br
       - if @bilhetes_pendentes.count == 0
         Você não possui bilhetes inativos esperando ativação
@@ -117,15 +149,7 @@
       %hr
     %p
       %h4 Comprar Novo Bilhete
-      = link_to 'Novo Bilhete', new_user_bilhete_path(current_user), class: 'btn btn-primary'
-
-      / INICIO FORMULARIO BOTAO PAGSEGURO
-      /%form{:action => veiculos_path, :method => "post", :onsubmit => "PagSeguroLightbox(this); return false;"}
-      /  %input{:name => "itemCode", :type => "hidden", :value => "4D8327DC96962DAAA4563F940F58B9A3"}/
-      /  %input{:name => "iot", :type => "hidden", :value => "button"}/
-      /  %input{:alt => "Pague com PagSeguro - é rápido, grátis e seguro!", :name => "submit", :src => "https://stc.pagseguro.uol.com.br/public/img/botoes/pagamentos/209x48-comprar-assina.gif", :type => "image"}/
-      /  %script{:src => "https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js", :type => "text/javascript"}
-      / FINAL FORMULARIO BOTAO PAGSEGURO
+      = link_to 'Novo Bilhete', new_user_order_path(current_user), class: 'btn btn-primary'
       %hr
     %p
       %h4 Mapa com a localização dos estacionamentos

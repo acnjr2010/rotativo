@@ -17,9 +17,9 @@
               .nav.navbar-nav.navbar-right
                 %li
                   - if current_user.perfil_id == 1
-                    = link_to "Novo Bilhete", new_user_bilhete_path(current_user)
+                    = link_to "Novo Bilhete", new_user_order_path(current_user)
                   - else
-                    %li= link_to "Novo Bilhete", new_user_bilhetepv_path(current_user)
+                    %li= link_to "Novo Bilhete", new_user_order_path(current_user)
                     /%li= link_to "Relatórios", user_bilhetepvs_path
                     %li.dropdown
                       %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
