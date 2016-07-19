@@ -32,6 +32,6 @@ test:
 #
 production:
   <<: *default
-  database: rails4
-  username: adminsvidvsm
-  password: nxlW7LR77ysN
+  database: itaborai_rotativo_production
+  username: itaborai_rotativo
+  password: <%= ENV['MULTIVAGAS_DATABASE_PASSWORD'] %>
