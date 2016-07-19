@@ -44,6 +44,9 @@
                 %td
                   = link_to "Gerar Bilhete", edit_user_bilhete_path(current_user, bilhete)
 
+        .flickr_pagination
+          = will_paginate @bilhetes_nao_finalizados
+
       %hr
 
     %p
@@ -73,6 +76,10 @@
                   período(s) comprado(s)
                 %td= time_tag bilhete.ativado_em
                 %td= link_to "Renovar", renovar_bilhete_path(bilhete), class: 'btn btn-success' if bilhete.periodo == 1
+
+        .flickr_pagination
+          = will_paginate @bilhetes_ativos
+
       %hr
 
     %p
@@ -100,6 +107,10 @@
                   = bilhete.periodo
                   período(s) comprado(s)
                 %td= link_to "Ativar", ativar_bilhete_path(bilhete), class: 'btn btn-primary'
+
+        .flickr_pagination
+          = will_paginate @bilhetes_pendentes
+
       %hr
 
     %p
@@ -111,7 +122,7 @@
           %thead
             %th Modelo
             %th Placa
-            - @user.veiculos.order(modelo: :asc).each do |veiculo|
+            - @veiculos.each do |veiculo|
               %tr
                 %td
                   = link_to veiculo.modelo, veiculo
@@ -146,6 +157,9 @@
                   = bilhete.periodo
                   período(s) comprado(s)
                 %td= time_tag bilhete.updated_at
+
+        .flickr_pagination
+          = will_paginate @bilhetes_finalizados
       %hr
     %p
       %h4 Comprar Novo Bilhete

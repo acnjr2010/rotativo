@@ -21,10 +21,11 @@ class UsersController < ApplicationController
       marker.infowindow info
     end
     @bilhete = current_user.bilhetes.build
-    @bilhetes_pendentes = current_user.bilhetes.where(status: 0)
-    @bilhetes_ativos = current_user.bilhetes.where(status: 1)
-    @bilhetes_finalizados = current_user.bilhetes.where(status: 2)
-    @bilhetes_nao_finalizados = current_user.bilhetes.where(status: nil)
+    @bilhetes_pendentes = current_user.bilhetes.where(status: 0).paginate(page: params[:page], per_page: 5)
+    @bilhetes_ativos = current_user.bilhetes.where(status: 1).paginate(page: params[:page], per_page: 5)
+    @bilhetes_finalizados = current_user.bilhetes.where(status: 2).paginate(page: params[:page], per_page: 5)
+    @bilhetes_nao_finalizados = current_user.bilhetes.where(status: nil).paginate(page: params[:page], per_page: 5)
+    @veiculos = current_user.veiculos.order(modelo: :asc)
   end
 
   def show
