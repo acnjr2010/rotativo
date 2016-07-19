@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby "2.2.0"
 
 gem 'rails', '4.2.6'
 gem 'pg', '~> 0.15'
@@ -26,6 +26,7 @@ gem 'whenever', '~> 0.9.7', :require => false
 gem 'will_paginate', '~> 3.1'
 gem 'nokogiri', '~> 1.6', '>= 1.6.8'
 gem 'open-uri-s3', '~> 1.6'
+gem 'rails_12factor', group: :production
 # Use Unicorn as the app server
 # gem 'unicorn'
 
