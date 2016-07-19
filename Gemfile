@@ -18,7 +18,7 @@ gem 'simple_form', '~> 3.2', '>= 3.2.1'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'haml', '~> 4.0', '>= 4.0.7'
-gem 'devise', '~> 4.0', '>= 4.0.1'
+gem 'devise', '~> 3.5', '>= 3.5.10'
 gem 'pagseguro-oficial', '~> 2.6'
 gem 'geocoder'
 gem 'gmaps4rails'
