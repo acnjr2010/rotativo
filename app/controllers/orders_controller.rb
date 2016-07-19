@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if current_user.perfil_id == "1"
+    if current_user.perfil_id == 1
       params[:order][:valor_bilhete] = calculo_bilhete(params[:order][:periodo], params[:order][:setor_id]) if params[:order][:periodo] && params[:order][:setor_id] != ""
       params[:order][:description] = Setor.find(params[:order][:setor_id]).cor
       @order = current_user.orders.build(order_params)
